@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dibuja tu ropa</title>
+    <style>
+        body { text-align: center; font-family: sans-serif; }
+        /* Lienzo negro para coincidir con Fashion-MNIST */
+        canvas { border: 2px solid #333; background-color: black; cursor: crosshair; }
+        button { margin-top: 20px; padding: 10px 20px; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <h2>Dibuja una prenda (ej: camiseta, pantalón, bolso)</h2>
+    
+    <canvas id="canvas" width="280" height="280"></canvas>
+    <br>
+    <button onclick="limpiar()">Limpiar</button>
+    <button onclick="predecir()">¿Qué es?</button>
+    
+    <h3 id="resultado">Dibuja algo y pulsa predecir...</h3>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        let dibujando = false;
+
+        // Configuración del pincel (blanco y grueso, porque se reducirá a 28x28)
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 15;
+        ctx.lineCap = "round";
+
+        // Eventos de ratón para dibujar
+        canvas.addEventListener('mousedown', (e) => { dibujando = true; dibujar(e); });
+        canvas.addEventListener('mouseup', () => { dibujando = false; ctx.beginPath(); });
+        canvas.addEventListener('mousemove', dibujar);
+
+        function dibujar(e) {
+            if (!dibujando) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function limpiar() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            document.getElementById('resultado').innerText = "Dibuja algo y pulsa predecir...";
+        }
+
+        // Función para enviar la imagen al servidor Flask
+        async function predecir() {
+            const dataURL = canvas.toDataURL('image/png');
+            
+            document.getElementById('resultado').innerText = "Pensando...";
+
+            const response = await fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image: dataURL })
+            });
+
+            const data = await response.json();
+            document.getElementById('resultado').innerText = "¡Es un/a " + data.prediction + "!";
+        }
+    </script>
+</body>
+</html>

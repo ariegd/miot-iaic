@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo GAN - Departamento de IA</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 50px; }
+        #resultado { margin-top: 20px; border: 1px solid #ccc; width: 150px; height: 150px; image-rendering: pixelated; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Prueba de Generación GAN</h1>
+    <p>Haz clic en el botón para que el modelo genere un dígito aleatorio.</p>
+
+    <button onclick="generar()">Generar Imagen</button>
+
+    <div>
+        <img id="resultado" alt="La imagen generada aparecerá aquí"/>
+    </div>
+
+    <script>
+        async function generar() {
+            try {
+                // Llamar al servidor FastAPI (asegúrate de que está corriendo en el puerto 8000)
+                const respuesta = await fetch('http://localhost:8000/generar');
+                const datos = await respuesta.json();
+
+                // Mostrar la imagen
+                const imgElement = document.getElementById('resultado');
+                imgElement.src = "data:image/png;base64," + datos.imagen_base64;
+            } catch (error) {
+                console.error("Error al conectar con la API:", error);
+                alert("Error al conectar con el servidor. ¿Está uvicorn ejecutándose?");
+            }
+        }
+    </script>
+</body>
+</html>
