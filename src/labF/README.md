@@ -1,5 +1,5 @@
 
-**Asunto: Propuesta de Proyecto \- Sistema AIoT de Gestión de Aforo y Ruteo Dinámico en Transporte Urbano**  
+## **Asunto: Propuesta de Proyecto \- Sistema AIoT de Gestión de Aforo y Ruteo Dinámico en Transporte Urbano**  
 Hola a todos,  
 A continuación, presentamos la propuesta de proyecto final para nuestro grupo:  
 **1\. Descripción del problema:**  
@@ -14,4 +14,8 @@ Para cumplir con los requisitos de la asignatura, abordaremos el problema de for
 
 * Para los modelos de imágenes, utilizaremos técnicas como Grad-CAM para visualizar en qué zonas del fotograma (cabezas, pasillo) se está fijando el modelo para determinar el aforo.  
 * Para los modelos tabulares, aplicaremos técnicas como SHAP para entender qué peso tienen variables como la "hora punta" o la "lluvia" a la hora de predecir el colapso de la ruta.
+
+## **Dataset**
+* [YOLOv8](https://app.roboflow.com/gisselas-workspace-pku8a/personas_en_autobus_tesis/2)
+* `datos/LineaC1.csv`
 
