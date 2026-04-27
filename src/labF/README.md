@@ -1,4 +1,3 @@
----
 
 **Asunto: Propuesta de Proyecto \- Sistema AIoT de Gestión de Aforo y Ruteo Dinámico en Transporte Urbano**  
 Hola a todos,  
@@ -15,6 +14,4 @@ Para cumplir con los requisitos de la asignatura, abordaremos el problema de for
 
 * Para los modelos de imágenes, utilizaremos técnicas como Grad-CAM para visualizar en qué zonas del fotograma (cabezas, pasillo) se está fijando el modelo para determinar el aforo.  
 * Para los modelos tabulares, aplicaremos técnicas como SHAP para entender qué peso tienen variables como la "hora punta" o la "lluvia" a la hora de predecir el colapso de la ruta.
-
----
 
